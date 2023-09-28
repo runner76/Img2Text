@@ -14,7 +14,7 @@ class Img2text(object):
   def __init__(self, filename):
     self.filename = filename
     image_path = self.imagePath(filename)
-    print(image_path)
+    #print(image_path)
     self.image = Image.open(image_path)
     self.text = self.conversion(self.image) 
 
@@ -37,10 +37,22 @@ class Img2text(object):
 
 def main():
   # prompt user to enter filename
-  filename = str(input("Enter file name: "))
+  while True:
+    filename = str(input("Enter file name: "))
+    if not filename or filename == '':
+      continue
+
+    else:
+      break 
 
   # run program
-  program = Img2text(filename)
+  try: 
+    program = Img2text(filename)
+  
+  except:
+    print("File does not exist.")
+    quit()
+
   program.run()
 
 main()
