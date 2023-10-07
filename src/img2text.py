@@ -49,7 +49,6 @@ def main():
   # make list
   filelist = filenames.split(",")
   filelist = [x.strip(" ") for x in filelist]
-  print(filelist) 
 
   # check if file exists 
   for file in filelist:
