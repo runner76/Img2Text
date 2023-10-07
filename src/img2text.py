@@ -11,10 +11,9 @@ text_path = main_dir + "/text"
 
 class Img2text(object):
 
-  def __init__(self, filename):
-    self.filename = filename
-    image_path = self.imagePath(filename)
-    #print(image_path)
+  def __init__(self, file):
+    self.filename = file
+    image_path = self.imagePath(self.filename)
     self.image = Image.open(image_path)
     self.text = self.conversion(self.image) 
 
@@ -36,24 +35,32 @@ class Img2text(object):
     self.export(self.text)
 
 def main():
+  # instructions prompt
+  print("The following program handles multiple files input—separated by comma.")
   # prompt user to enter filename
   while True:
-    filename = str(input("Enter file name: "))
-    if not filename or filename == '':
+    filenames = str(input("Enter file names: "))
+    if not filenames or filenames == '':
       continue
 
     else:
-      break 
+      break
+ 
+  # make list
+  filelist = filenames.split(",")
+  filelist = [x.strip(" ") for x in filelist]
+  print(filelist) 
 
-  # run program
-  try: 
-    program = Img2text(filename)
-  
-  except:
-    print("File does not exist.")
-    quit()
-
-  program.run()
+  # check if file exists 
+  for file in filelist:
+    try:
+      print(f"Processing {file}...") 
+      program = Img2text(file)
+      program.run()
+ 
+    except:
+      print("File does not exist.")
+      continue 
 
 if __name__ == "__main__":
     main()
